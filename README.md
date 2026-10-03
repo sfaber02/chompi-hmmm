@@ -5,7 +5,7 @@ A drone machine for the [CHOMPI](https://github.com/sfaber02/CHOMPI), after the 
 It has eight voices. Each is a triangle that SHARP bends towards a square.
 - **Pairs and groups:** the voices are tuned by ear, and arranged in four pairs (12 34 56 78) and two groups (1234 5678).
 - **FM:** pairs can frequency-modulate each other in a ring, or be modulated by the Hyper LFO. With TOTAL FB on, the instrument's own output modulates them.
-- **Signal chain:** everything runs into a two-line modulated delay that can sing by itself, then a fuzz.
+- **Signal chain:** everything runs into a two-line modulated delay that can sing by itself, then a fuzz and a resonant low-pass filter.
 
 > Beta. Download from [Releases](https://github.com/sfaber02/chompi-hmmm/releases/tag/beta).
 
@@ -39,7 +39,7 @@ It has eight voices. Each is a triangle that SHARP bends towards a square.
 | 5 | **GROUPS** | HOLD 1234<br>*vibrato* | HOLD 5678 | PITCH 1234 | PITCH 5678 |
 | 6 | **HYPER LFO** | freq A | freq B | OR / AND | LINK |
 | 7 | **DELAY** | mix<br>*mod 1* | time 1<br>*mod 2* | time 2<br>*SELF / LFO* | feedback<br>*TRI / SQUARE* |
-| 8 | **DISTORTION** | drive | mix | | |
+| 8 | **FILTER** (+ distortion) | cutoff | resonance | drive | distortion mix |
 | 9 | **VOICE** | attack | release | character | stereo spread |
 | 10 | **TUNE** | octave | transpose | fine | MIDI bend range |
 
