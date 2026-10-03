@@ -233,6 +233,11 @@ int main(int argc, char** argv)
                       {LFO_B, .8f}, {LFO_LINK, 1.f}},
                      Roll({0, 1, 2, 3}, 0.1f, 0.3f, 4.f), 5.f});
 
+    // Global filter half closed and resonant over a fuzzy FM drone.
+    tests.push_back({"filter_res",
+                     {{CUTOFF, .45f}, {RESONANCE, .8f}, {MOD1, .3f}, {DIST_DRIVE, .4f}},
+                     Roll({0, 1, 2, 3}, 0.1f, 0.3f, 4.f), 5.f});
+
     // HOLD: nothing pressed at all, groups droning on their own.
     tests.push_back({"hold", {{HOLD_A, .6f}, {HOLD_B, .4f}}, {}, 4.f});
 
@@ -254,7 +259,7 @@ int main(int argc, char** argv)
                 {TOTAL_FB, 1.f}, {HOLD_A, 1.f}, {HOLD_B, 1.f}, {VIBRATO, 1.f}, {LFO_A, 1.f},
                 {LFO_B, 1.f}, {LFO_LINK, 1.f}, {DLY_FB, 1.f}, {DLY_MIX, 1.f}, {DLY_MOD1, 1.f},
                 {DLY_MOD2, 1.f}, {DLY_SRC, 0.f}, {DIST_DRIVE, 1.f}, {DIST_MIX, 1.f},
-                {CHARACTER, 1.f}, {PITCH_A, 1.f}, {PITCH_B, 1.f}})
+                {CHARACTER, 1.f}, {PITCH_A, 1.f}, {PITCH_B, 1.f}, {RESONANCE, 1.f}})
             s.patch.push_back(kv);
         tests.push_back(s);
     }

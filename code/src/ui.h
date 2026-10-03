@@ -398,7 +398,7 @@ class Ui
         else if(param == DLY_FB || param == DLY_MIX)
             shown_colour_ = kPageColour[PAGE_DELAY];
         else if(param == DIST_DRIVE)
-            shown_colour_ = kPageColour[PAGE_DIST];
+            shown_colour_ = kPageColour[PAGE_TONE];
         else if(param == TOTAL_FB)
             shown_colour_ = kPageColour[PAGE_MOD];
         shown_param_ = param;
