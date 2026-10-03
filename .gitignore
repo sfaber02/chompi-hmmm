@@ -1,0 +1,6 @@
+code/src/build/
+host/render
+host/out/
+.DS_Store
+._*
+host/boottest
