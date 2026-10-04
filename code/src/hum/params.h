@@ -67,8 +67,6 @@ enum Param : uint8_t
     DLY_SRC,
     DLY_SHAPE,
 
-    CUTOFF,
-    RESONANCE,
     DIST_DRIVE,
     DIST_MIX,
 
@@ -164,8 +162,6 @@ constexpr ParamInfo kParams[NUM_PARAMS] = {
     {"dly_src",    1.f,   2, false, 0},  // SELF / LFO
     {"dly_shape",  0.f,   2, false, 0},  // TRI / SQUARE
 
-    {"cutoff",     1.f,   0, false, 74},   // wide open
-    {"resonance",  0.f,   0, false, 71},
     {"dist_drive", 0.f,   0, false, 114},
     {"dist_mix",   1.f,   0, false, 115},
 
@@ -209,7 +205,7 @@ enum Page : uint8_t
     PAGE_GROUPS,
     PAGE_LFO,
     PAGE_DELAY,
-    PAGE_TONE, // filter + distortion
+    PAGE_DIST,
     PAGE_VOICE,
     PAGE_TUNE,
     NUM_PAGES
@@ -227,7 +223,7 @@ constexpr uint8_t kPageParams[NUM_PAGES][2 * kPageKnobs] = {
     {HOLD_A, HOLD_B, PITCH_A, PITCH_B, VIBRATO, kNone, kNone, kNone},
     {LFO_A, LFO_B, LFO_MODE, LFO_LINK, kNone, kNone, kNone, kNone},
     {DLY_MIX, DLY_TIME1, DLY_TIME2, DLY_FB, DLY_MOD1, DLY_MOD2, DLY_SRC, DLY_SHAPE},
-    {CUTOFF, RESONANCE, DIST_DRIVE, DIST_MIX, kNone, kNone, kNone, kNone},
+    {DIST_DRIVE, DIST_MIX, kNone, kNone, kNone, kNone, kNone, kNone},
     {ATTACK, RELEASE, CHARACTER, SPREAD, kNone, kNone, kNone, kNone},
     {OCTAVE, TRANSPOSE, FINE_TUNE, BEND_RANGE, kNone, kNone, kNone, kNone},
 };
@@ -242,7 +238,7 @@ constexpr float kPageColour[NUM_PAGES][3] = {
     {0.f, 1.f, .3f},   // GROUPS     green
     {1.f, .85f, 0.f},  // HYPER LFO  yellow
     {0.f, 1.f, .85f},  // DELAY      teal
-    {1.f, .06f, 0.f},  // FILTER     red
+    {1.f, .06f, 0.f},  // DISTORTION red
     {.2f, .3f, 1.f},   // VOICE      indigo
     {1.f, 1.f, 1.f},   // TUNE       white
 };

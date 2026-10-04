@@ -3,7 +3,7 @@
  *
  *    8 voices in 4 pairs (12 34 56 78) and 2 groups (1234 5678)
  *      -> mix at 96 kHz -> halve to 48 kHz -> MOD DELAY -> DISTORTION
- *      -> FILTER -> volume -> limiter
+ *      -> volume -> limiter
  *
  *  FM. Each pair's MOD source is off, FM, or LFO:
  *    FM   the pair is modulated by its neighbour in the FM ring. The
@@ -26,7 +26,6 @@
 #include "halfband.h"
 #include "moddelay.h"
 #include "distortion.h"
-#include "ladder.h"
 
 namespace hum
 {
@@ -49,8 +48,6 @@ class Engine
         hb_l_.Init();
         hb_r_.Init();
         delay_.Init(delay_mem, delay_frames, sample_rate);
-        filt_l_.Init(sample_rate);
-        filt_r_.Init(sample_rate);
         // Every field, explicitly: on the hardware this object may sit in
         // RAM that startup doesn't clear (POLY's boot-noise lesson).
         volume     = 0.7f;
@@ -114,7 +111,6 @@ class Engine
     void Process(float* out_l, float* out_r, size_t size)
     {
         const float dt = static_cast<float>(size) / sr_;
-        block_         = size;
         UpdateParams(dt);
 
         const uint8_t gates = key_gates_ | midi_gates_;
@@ -183,14 +179,7 @@ class Engine
             l = dist_.Process(l);
             r = dist_.Process(r);
             lv_dist_ = fmaxf(lv_dist_, fmaxf(fabsf(l), fabsf(r)));
-
-            // The global filter. Run at half level so the ladder's input
-            // saturator stays out of the way when it's wide open.
-            l = filt_l_.Process(l * 0.5f) * 2.f;
-            r = filt_r_.Process(r * 0.5f) * 2.f;
-
-            // TOTAL FB taps here, after the filter (so closing the filter
-            // calms the feedback too), before the volume.
+            // TOTAL FB taps here, after the distortion, before the volume.
             fb_sig_ = Clamp(l + r, -1.f, 1.f);
 
             // DC blocker (the fuzz is asymmetric)
@@ -294,13 +283,6 @@ class Engine
 
         dist_.Set(p[DIST_DRIVE], p[DIST_MIX]);
 
-        // Global filter: 20 Hz - 20 kHz, resonance up to self-oscillation.
-        const float cutoff = KnobToTime(p[CUTOFF], 20.f, 20000.f);
-        filt_l_.SetCutoffBlock(cutoff, block_);
-        filt_r_.SetCutoffBlock(cutoff, block_);
-        filt_l_.SetResonance(p[RESONANCE]);
-        filt_r_.SetResonance(p[RESONANCE]);
-
         noise_amt_ = 0.004f * character * character;
     }
 
@@ -314,8 +296,6 @@ class Engine
     Halfband   hb_l_, hb_r_;
     ModDelay   delay_;
     Distortion dist_;
-    Ladder     filt_l_, filt_r_;
-    size_t     block_ = 24;
     Noise      noise_;
 
     uint8_t key_gates_ = 0, midi_gates_ = 0;
