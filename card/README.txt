@@ -12,8 +12,6 @@ INSTALL
   goes on the first free key. 06_HMMM.bin puts it on key 6.
 
   HMMM makes a /HMMM folder for your patches.
-  (If you ran the beta when it was called HUM, its /HUM folder is
-  renamed to /HMMM on first boot, so your patches come with it.)
 
 THE ONE RULE: the CHOMPI key (red, top left) is SHIFT.
 
