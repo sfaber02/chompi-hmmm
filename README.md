@@ -7,7 +7,7 @@ It has eight voices. Each is a triangle that SHARP bends towards a square.
 - **FM:** pairs can frequency-modulate each other in a ring, or be modulated by the Hyper LFO. With TOTAL FB on, the instrument's own output modulates them.
 - **Signal chain:** everything runs into a two-line modulated delay that can sing by itself, then a fuzz.
 
-> Work in progress. Not released yet.
+> Beta. Download from [Releases](https://github.com/sfaber02/chompi-hum/releases/tag/beta).
 
 ## Controls
 
