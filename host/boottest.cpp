@@ -1,10 +1,10 @@
 // Boot-silence check: fill the engine with junk (as uninitialised RAM is
 // after another firmware ran), start it, touch no keys, report the peak.
-#include "../code/src/hum/engine.h"
+#include "../code/src/hmmm/engine.h"
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
-using namespace hum;
+using namespace hmmm;
 static int16_t g_delay[2 * 72000];
 static Engine  g_engine;
 int main()

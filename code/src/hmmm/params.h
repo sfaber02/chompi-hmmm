@@ -9,7 +9,7 @@
 #pragma once
 #include <cstdint>
 
-namespace hum
+namespace hmmm
 {
 
 constexpr int kNumVoices = 8;
@@ -248,4 +248,4 @@ constexpr float kGroupColour[2][3] = {
     {0.f, .7f, 1.f}, // 5-8
 };
 
-} // namespace hum
+} // namespace hmmm

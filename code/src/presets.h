@@ -2,8 +2,8 @@
  *  @brief Patches on the SD card as small text files, one "name value" per
  *  line, values 0..1:
  *
- *    /HUM/P01.txt .. P15.txt   the 15 slots (CHOMPI + white key)
- *    /HUM/current.txt          the sound as you left it, restored at boot
+ *    /HMMM/P01.txt .. P15.txt   the 15 slots (CHOMPI + white key)
+ *    /HMMM/current.txt          the sound as you left it, restored at boot
  *
  *  Unknown names are ignored and missing ones keep their current value, so
  *  files survive parameters being added or renamed. Writes go to a temp file
@@ -13,7 +13,7 @@
  */
 #pragma once
 #include "fatfs.h"
-#include "hum/params.h"
+#include "hmmm/params.h"
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -53,11 +53,11 @@ class PresetStore
                 *sp = '\0';
                 if(volume && strcmp(line, "volume") == 0)
                     *volume = val;
-                for(int i = 0; i < hum::NUM_PARAMS; i++)
+                for(int i = 0; i < hmmm::NUM_PARAMS; i++)
                 {
-                    if(strcmp(line, hum::kParams[i].name) == 0)
+                    if(strcmp(line, hmmm::kParams[i].name) == 0)
                     {
-                        if(hum::kParams[i].global && !globals)
+                        if(hmmm::kParams[i].global && !globals)
                             break;
                         params[i] = val;
                         break;
@@ -72,9 +72,9 @@ class PresetStore
     bool Save(const char* fname, const float* params, const float* volume = nullptr, bool globals = true)
     {
         size_t len = 0;
-        for(int i = 0; i < hum::NUM_PARAMS; i++)
-            if(globals || !hum::kParams[i].global)
-                Append(&len, hum::kParams[i].name, params[i]);
+        for(int i = 0; i < hmmm::NUM_PARAMS; i++)
+            if(globals || !hmmm::kParams[i].global)
+                Append(&len, hmmm::kParams[i].name, params[i]);
         if(volume)
             Append(&len, "volume", *volume);
 

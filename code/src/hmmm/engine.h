@@ -27,7 +27,7 @@
 #include "moddelay.h"
 #include "distortion.h"
 
-namespace hum
+namespace hmmm
 {
 
 class Engine
@@ -319,4 +319,4 @@ class Engine
     float lv_voices_ = 0.f, lv_dist_ = 0.f, lv_limit_ = 1.f;
 };
 
-} // namespace hum
+} // namespace hmmm

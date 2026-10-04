@@ -1,5 +1,5 @@
 /** @file voice.h
- *  @brief One HUM voice: a triangle oscillator bent towards a square by
+ *  @brief One HMMM voice: a triangle oscillator bent towards a square by
  *  SHARP, an envelope that swells in when its key is held and fades slowly
  *  when let go, and a HOLD floor under it that keeps it droning.
  *
@@ -12,7 +12,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class Voice
@@ -107,4 +107,4 @@ class Voice
     bool     gate_ = false;
 };
 
-} // namespace hum
+} // namespace hmmm

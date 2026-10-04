@@ -1,8 +1,8 @@
 /** @file factory.h
  *  @brief The factory patches, built into the firmware.
  *
- *  A factory slot whose file (/HUM/Pnn.txt) is missing loads its built-in
- *  copy, so a bare .bin with no HUM folder still has every patch, and slot
+ *  A factory slot whose file (/HMMM/Pnn.txt) is missing loads its built-in
+ *  copy, so a bare .bin with no HMMM folder still has every patch, and slot
  *  15 (init) always works. A patch you save to a slot writes the file, which
  *  then wins.
  *
@@ -12,7 +12,7 @@
 #pragma once
 #include "params.h"
 
-namespace hum
+namespace hmmm
 {
 
 struct ParamValue
@@ -88,18 +88,18 @@ constexpr ParamValue kHoldDrone[] = {
 
 constexpr ParamValue kInit[] = {{TUNE1, TuneSt(0)}};
 
-#define HUM_FACTORY(name, slot, arr) \
+#define HMMM_FACTORY(name, slot, arr) \
     {name, slot, arr, static_cast<uint8_t>(sizeof(arr) / sizeof(arr[0]))}
 constexpr FactoryPatch kFactoryPatches[] = {
-    HUM_FACTORY("organ", 1, kOrgan),
-    HUM_FACTORY("fm_loop", 2, kFmLoop),
-    HUM_FACTORY("lfo_pulse", 3, kLfoPulse),
-    HUM_FACTORY("delay_drone", 4, kDelayDrone),
-    HUM_FACTORY("chaos", 5, kChaos),
-    HUM_FACTORY("hold_drone", 6, kHoldDrone),
-    HUM_FACTORY("init", 15, kInit),
+    HMMM_FACTORY("organ", 1, kOrgan),
+    HMMM_FACTORY("fm_loop", 2, kFmLoop),
+    HMMM_FACTORY("lfo_pulse", 3, kLfoPulse),
+    HMMM_FACTORY("delay_drone", 4, kDelayDrone),
+    HMMM_FACTORY("chaos", 5, kChaos),
+    HMMM_FACTORY("hold_drone", 6, kHoldDrone),
+    HMMM_FACTORY("init", 15, kInit),
 };
-#undef HUM_FACTORY
+#undef HMMM_FACTORY
 constexpr int kNumFactoryPatches = sizeof(kFactoryPatches) / sizeof(kFactoryPatches[0]);
 
 /** The sound a brand-new card starts on. Silent until a key is touched. */
@@ -125,4 +125,4 @@ inline void ApplyFactory(const FactoryPatch& f, float* params)
         params[f.values[i].id] = f.values[i].v;
 }
 
-} // namespace hum
+} // namespace hmmm

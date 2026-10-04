@@ -1,17 +1,19 @@
-HUM - a drone machine for the CHOMPI (beta)
+HMMM - a drone machine for the CHOMPI (beta)
 ===========================================
 
 Eight voices inspired by the SOMA Lyra-8. They modulate each other,
 run into a delay that can sing by itself, and end in a fuzz.
 
 INSTALL
-  On its own: copy HUM.bin to the ROOT of the card, as the only .bin
+  On its own: copy HMMM.bin to the ROOT of the card, as the only .bin
   there (remove CHOMPI.bin or any other). Power on. The rainbow shows
   while it installs.
-  On the multi-firmware launcher: copy HUM.bin into /FIRMWARE. It
-  goes on the first free key. 06_HUM.bin puts it on key 6.
+  On the multi-firmware launcher: copy HMMM.bin into /FIRMWARE. It
+  goes on the first free key. 06_HMMM.bin puts it on key 6.
 
-  HUM makes a /HUM folder for your patches.
+  HMMM makes a /HMMM folder for your patches.
+  (If you ran the beta when it was called HUM, its /HUM folder is
+  renamed to /HMMM on first boot, so your patches come with it.)
 
 THE ONE RULE: the CHOMPI key (red, top left) is SHIFT.
 

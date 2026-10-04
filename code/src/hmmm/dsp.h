@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace hum
+namespace hmmm
 {
 
 using std::size_t;
@@ -95,4 +95,4 @@ struct Noise
     }
 };
 
-} // namespace hum
+} // namespace hmmm

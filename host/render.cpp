@@ -6,8 +6,8 @@
 //
 // Each test is a patch (param overrides) plus a score of key presses.
 
-#include "../code/src/hum/engine.h"
-#include "../code/src/hum/factory.h"
+#include "../code/src/hmmm/engine.h"
+#include "../code/src/hmmm/factory.h"
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -15,7 +15,7 @@
 #include <vector>
 #include <chrono>
 
-using namespace hum;
+using namespace hmmm;
 
 static constexpr float  kSr     = 48000.f;
 static constexpr size_t kBlock  = 24;
@@ -141,7 +141,7 @@ static std::vector<Press> Roll(std::initializer_list<int> voices, float start, f
 }
 
 // ---------------------------------------------------------------------------
-// Factory patches (code/src/hum/factory.h): written out as P01.txt.. for
+// Factory patches (code/src/hmmm/factory.h): written out as P01.txt.. for
 // reference (docs/factory-patches) and rendered as demos.
 
 static void WriteFactory(const std::string& card_dir, const std::string& wav_dir)

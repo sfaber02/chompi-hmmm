@@ -1,5 +1,5 @@
 /** @file chompi_main.cpp
- *  @brief HUM: an eight-voice drone machine for the CHOMPI, after the
+ *  @brief HMMM: an eight-voice drone machine for the CHOMPI, after the
  *  SOMA Lyra-8.
  *
  *  Two places code runs:
@@ -16,8 +16,8 @@
 #include "fatfs.h"
 #include "OptionsManager.h"
 #include "presets.h"
-#include "hum/engine.h"
-#include "hum/factory.h"
+#include "hmmm/engine.h"
+#include "hmmm/factory.h"
 #include "ui.h"
 #include "diag.h"
 
@@ -29,7 +29,7 @@ using namespace chompi;
 static constexpr size_t kDelayFrames = 72000; // 1.5 s per line at 48 kHz
 
 Hardware       hw;
-hum::Engine    engine;
+hmmm::Engine    engine;
 Ui             ui;
 SdmmcHandler   sdmmc;
 // The SD driver DMAs into the FATFS sector buffer inside this and then
@@ -124,8 +124,8 @@ uint8_t midi_ch_in = 0;
  *  voices 1-8, like the CHOMPI's own keys. Other notes are ignored. */
 static int MidiVoice(int note)
 {
-    static const uint8_t kNotes[hum::kNumVoices] = {48, 50, 52, 53, 55, 57, 59, 60};
-    for(int v = 0; v < hum::kNumVoices; v++)
+    static const uint8_t kNotes[hmmm::kNumVoices] = {48, 50, 52, 53, 55, 57, 59, 60};
+    for(int v = 0; v < hmmm::kNumVoices; v++)
         if(kNotes[v] == note)
             return v;
     return -1;
@@ -162,19 +162,19 @@ static bool LoadSlot(int slot)
     char name[16];
     PresetStore::SlotName(slot, name);
     // Start from the defaults, keeping the global (instrument) settings.
-    float p[hum::NUM_PARAMS];
-    for(int i = 0; i < hum::NUM_PARAMS; i++)
-        p[i] = hum::kParams[i].global ? engine.params[i] : hum::kParams[i].def;
+    float p[hmmm::NUM_PARAMS];
+    for(int i = 0; i < hmmm::NUM_PARAMS; i++)
+        p[i] = hmmm::kParams[i].global ? engine.params[i] : hmmm::kParams[i].def;
     bool ok = sd_ok && presets.Load(name, p, nullptr, false);
     if(!ok)
     {
-        const hum::FactoryPatch* f = hum::FactoryForSlot(slot + 1);
+        const hmmm::FactoryPatch* f = hmmm::FactoryForSlot(slot + 1);
         if(!f)
             return false;
-        hum::ApplyFactory(*f, p);
+        hmmm::ApplyFactory(*f, p);
         ok = true;
     }
-    for(int i = 0; i < hum::NUM_PARAMS; i++)
+    for(int i = 0; i < hmmm::NUM_PARAMS; i++)
         engine.params[i] = p[i];
     return ok;
 }
@@ -219,12 +219,12 @@ static void BootAnimation()
     for(int step = 0; step < 48; step++)
     {
         const float t = step / 47.f;
-        for(int v = 0; v < hum::kNumVoices; v++)
+        for(int v = 0; v < hmmm::kNumVoices; v++)
         {
             // Each key a little later than the one before, rise then fall.
             const float x = Clamp(t * 1.6f - v * 0.075f, 0.f, 1.f);
-            const float b = sinf(x * hum::kPi);
-            const float* c = hum::kGroupColour[v / 4];
+            const float b = sinf(x * hmmm::kPi);
+            const float* c = hmmm::kGroupColour[v / 4];
             SetSmtLedFloat(kKeyLed[static_cast<int>(kWhiteKeys[v])], c[0] * b, c[1] * b, c[2] * b);
         }
         fill_led_data();
@@ -256,7 +256,7 @@ int main(void)
 
     LedSetup();
 
-    // SD card. Everything we keep lives in /HUM, created if missing.
+    // SD card. Everything we keep lives in /HMMM, created if missing.
     System::Delay(100);
     SdmmcHandler::Config sd_cfg;
     sd_cfg.speed = SdmmcHandler::Speed::FAST;
@@ -266,10 +266,15 @@ int main(void)
     sd_ok = f_mount(&fsi.GetSDFileSystem(), fsi.GetSDPath(), 1) == FR_OK;
     if(sd_ok)
     {
-        if(f_chdir("/HUM") != FR_OK)
+        if(f_chdir("/HMMM") != FR_OK)
         {
-            f_mkdir("/HUM");
-            f_chdir("/HUM");
+            // This firmware was called HUM through its first beta, and kept everything in
+            // /HUM. Rename that folder rather than starting fresh, so a beta tester's saved
+            // patches come across with the name. Only when /HMMM does not exist yet: never
+            // clobber one that does.
+            if(f_rename("/HUM", "/HMMM") != FR_OK)
+                f_mkdir("/HMMM");
+            f_chdir("/HMMM");
         }
         options.Init();
         midi_ch_in = options.midi_ch_in;
@@ -282,8 +287,8 @@ int main(void)
     // Which slots hold a patch, so CHOMPI can show them: any slot with a
     // file, plus every factory slot (built in, even with no file).
     uint16_t used = 0;
-    for(int i = 0; i < hum::kNumFactoryPatches; i++)
-        used |= 1u << (hum::kFactoryPatches[i].slot - 1);
+    for(int i = 0; i < hmmm::kNumFactoryPatches; i++)
+        used |= 1u << (hmmm::kFactoryPatches[i].slot - 1);
     bool restored = false;
     if(sd_ok)
     {
@@ -302,9 +307,9 @@ int main(void)
     // patch, which waits silently for a key.
     if(!restored)
     {
-        if(!(sd_ok && LoadSlot(hum::kFirstBootSlot - 1)))
-            hum::ApplyFactory(*hum::FactoryForSlot(hum::kFirstBootSlot), engine.params);
-        ui.SetCurrentSlot(hum::kFirstBootSlot - 1);
+        if(!(sd_ok && LoadSlot(hmmm::kFirstBootSlot - 1)))
+            hmmm::ApplyFactory(*hmmm::FactoryForSlot(hmmm::kFirstBootSlot), engine.params);
+        ui.SetCurrentSlot(hmmm::kFirstBootSlot - 1);
     }
     ui.Init(&hw, &engine);
 

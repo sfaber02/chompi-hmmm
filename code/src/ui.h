@@ -27,13 +27,13 @@
 #pragma once
 #include "hardware.h"
 #include "temp_led_stuff.h"
-#include "hum/engine.h"
+#include "hmmm/engine.h"
 #include "diag.h"
 
 namespace chompi
 {
 
-using namespace hum;
+using namespace hmmm;
 using Sw = Hardware::SwId;
 
 // Key LED (SMT chain index) for each switch id.
@@ -78,7 +78,7 @@ class Ui
     volatile int  save_slot  = -1;
     volatile bool dirty      = false; // something changed since the last autosave
     volatile uint32_t last_change = 0;
-    volatile uint16_t slots_used  = 0; // bit n = /HUM/P(n+1).txt exists; main keeps it
+    volatile uint16_t slots_used  = 0; // bit n = /HMMM/P(n+1).txt exists; main keeps it
 
     void Init(Hardware* hw, Engine* engine)
     {

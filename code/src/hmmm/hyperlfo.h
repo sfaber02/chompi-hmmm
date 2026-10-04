@@ -12,7 +12,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class HyperLfo
@@ -76,4 +76,4 @@ class HyperLfo
     bool  and_ = false, link_ = false;
 };
 
-} // namespace hum
+} // namespace hmmm

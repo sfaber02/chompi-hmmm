@@ -1,4 +1,4 @@
-# HUM
+# HMMM
 
 A drone machine for the [CHOMPI](https://github.com/sfaber02/CHOMPI), after the SOMA Lyra-8.
 
@@ -7,7 +7,7 @@ It has eight voices. Each is a triangle that SHARP bends towards a square.
 - **FM:** pairs can frequency-modulate each other in a ring, or be modulated by the Hyper LFO. With TOTAL FB on, the instrument's own output modulates them.
 - **Signal chain:** everything runs into a two-line modulated delay that can sing by itself, then a fuzz.
 
-> Beta. Download from [Releases](https://github.com/sfaber02/chompi-hum/releases/tag/beta).
+> Beta. Download from [Releases](https://github.com/sfaber02/chompi-hmmm/releases/tag/beta).
 
 ## Controls
 
@@ -54,10 +54,10 @@ cd code/src
 PATH=/path/to/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH make
 ```
 
-`build/CHOMPI.bin` ships as `HUM.bin`.
+`build/CHOMPI.bin` ships as `HMMM.bin`.
 
 Desktop harness: `make -C host && host/render host/out`.
 
 ## Credits
 
-By hiwatts ([@sfaber02](https://github.com/sfaber02)). The hardware layer comes from CHOMPI Club's open-source firmware (MIT); see `LICENSE.chompi-club`. Not affiliated with SOMA Laboratory: HUM is an homage, not a clone of their circuit.
+By hiwatts ([@sfaber02](https://github.com/sfaber02)). The hardware layer comes from CHOMPI Club's open-source firmware (MIT); see `LICENSE.chompi-club`. Not affiliated with SOMA Laboratory: HMMM is an homage, not a clone of their circuit.

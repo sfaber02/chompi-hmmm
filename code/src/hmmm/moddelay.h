@@ -18,7 +18,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class ModDelay
@@ -133,4 +133,4 @@ class ModDelay
     float    peak_ = 0.f;
 };
 
-} // namespace hum
+} // namespace hmmm

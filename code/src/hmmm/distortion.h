@@ -6,7 +6,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class Distortion
@@ -34,4 +34,4 @@ class Distortion
     float gain_ = 1.f, bias_ = 0.f, offset_ = 0.f, makeup_ = 1.f, mix_ = 1.f;
 };
 
-} // namespace hum
+} // namespace hmmm

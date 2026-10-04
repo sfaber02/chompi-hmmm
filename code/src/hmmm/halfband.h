@@ -9,7 +9,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class Halfband
@@ -65,4 +65,4 @@ class Halfband
     int   pos_ = 0;
 };
 
-} // namespace hum
+} // namespace hmmm
