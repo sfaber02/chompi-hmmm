@@ -13,7 +13,7 @@
 #pragma once
 #include "dsp.h"
 
-namespace hum
+namespace hmmm
 {
 
 class Ladder
@@ -96,4 +96,4 @@ class Ladder
     float drive_    = 1.f;
 };
 
-} // namespace hum
+} // namespace hmmm
